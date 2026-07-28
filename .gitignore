@@ -1,3 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# folders used for the exe and HTML build
+/build
+/exe
