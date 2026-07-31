@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://fcnhx2yy8v4a"]
+
+[ext_resource type="PackedScene" uid="uid://bbwwd0wt8raab" path="res://characters/fighter/jogador.tscn" id="1_7bb4d"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yak7t"]
+
+[node name="Jogo" type="Node2D" unique_id=1193365227]
+
+[node name="Jogador" parent="." unique_id=1447033046 instance=ExtResource("1_7bb4d")]
+position = Vector2(0, -28)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1583692221]
+position = Vector2(1, -38)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1202167560]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=197441880]
+shape = SubResource("WorldBoundaryShape2D_yak7t")
