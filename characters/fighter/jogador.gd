@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
+	
 	# adiciona a gravidade
 	if not is_on_floor():
 		velocity.y += gravity * delta
