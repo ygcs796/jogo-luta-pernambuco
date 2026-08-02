@@ -26,3 +26,7 @@ func _ready():
 func play_animation(name: String):
 	if(sprite.animation != name):
 		sprite.play(name)
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	state_machine.animation_finished()

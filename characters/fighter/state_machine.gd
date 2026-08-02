@@ -38,3 +38,8 @@ func physics_update(delta):
 	
 	if(current_state):
 		current_state.physics_update(delta)
+
+func animation_finished():
+	
+	if(current_state):
+		current_state.animation_finished()

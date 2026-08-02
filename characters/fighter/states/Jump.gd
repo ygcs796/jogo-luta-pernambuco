@@ -3,7 +3,7 @@ extends State
 # aciona a animacao assim que inicia o estado
 func enter():
 	print("Estado -> jump")
-	if(Input.is_action_just_pressed("ui_select") and jogador.is_on_floor()): # aciona o pula
+	if(Input.is_action_just_pressed("pular") and jogador.is_on_floor()): # aciona o pula
 		jogador.velocity.y = jogador.jump_velocity
 		
 	jogador.play_animation("idle")

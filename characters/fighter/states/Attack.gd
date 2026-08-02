@@ -1,20 +1,18 @@
-extends Node
+extends State
 
-class_name State
-
-var jogador: CharacterBody2D
-
+# aciona a animacao assim que inicia o estado
 func enter():
-	pass
-	
-func exit():
-	pass
-	
+	print("Estado -> attack")
+	jogador.velocity.x = 0
+	jogador.play_animation("attack")
+
 func physics_update(delta):
-	pass
+	
+	jogador.velocity.x = 0
 
 func animation_finished():
-	pass
+	
+	get_parent().change_state("Idle")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

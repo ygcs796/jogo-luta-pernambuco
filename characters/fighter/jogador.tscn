@@ -2,9 +2,41 @@
 
 [ext_resource type="Texture2D" uid="uid://cej4u6rrx6u4d" path="res://assets/sprites/IDLE.png" id="1_lj8jo"]
 [ext_resource type="Script" uid="uid://c7qwdedv7caex" path="res://characters/fighter/jogador.gd" id="1_uahlj"]
+[ext_resource type="Texture2D" uid="uid://b5cu26y04wdto" path="res://assets/sprites/ATTACK 1.png" id="2_h7ee2"]
 [ext_resource type="Script" uid="uid://ccy7ncegkq04o" path="res://characters/fighter/state_machine.gd" id="3_00bgo"]
 [ext_resource type="Texture2D" uid="uid://2vb04ojvayo4" path="res://assets/sprites/RUN.png" id="3_520wo"]
-[ext_resource type="Script" uid="uid://bo7vgdxtquh6x" path="res://characters/fighter/Jump.gd" id="5_5l1hb"]
+[ext_resource type="Script" uid="uid://cpj58wvte0os7" path="res://characters/fighter/states/Idle.gd" id="4_520wo"]
+[ext_resource type="Script" uid="uid://bo7vgdxtquh6x" path="res://characters/fighter/states/Jump.gd" id="5_hsew2"]
+[ext_resource type="Script" uid="uid://3xtc6kxi5jdo" path="res://characters/fighter/states/Walk.gd" id="7_gbgqn"]
+[ext_resource type="Script" uid="uid://dn8i7782hone2" path="res://characters/fighter/states/Attack.gd" id="9_o0buf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwur2"]
+atlas = ExtResource("2_h7ee2")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnydi"]
+atlas = ExtResource("2_h7ee2")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65hsd"]
+atlas = ExtResource("2_h7ee2")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nt7cf"]
+atlas = ExtResource("2_h7ee2")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldsvk"]
+atlas = ExtResource("2_h7ee2")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88dmc"]
+atlas = ExtResource("2_h7ee2")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nxsw"]
+atlas = ExtResource("2_h7ee2")
+region = Rect2(576, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2brh"]
 atlas = ExtResource("1_lj8jo")
@@ -114,6 +146,32 @@ region = Rect2(1440, 0, 96, 96)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_qwur2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnydi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65hsd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nt7cf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldsvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88dmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6nxsw")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_g2brh")
 }, {
 "duration": 1.0,
@@ -205,77 +263,15 @@ animations = [{
 radius = 5.0
 height = 28.0
 
-[sub_resource type="GDScript" id="GDScript_520wo"]
-script/source = "extends State
-
-# aciona a animacao assim que inicia o estado
-func enter():
-	print(\"Estado -> idle\")
-	jogador.play_animation(\"idle\")
-
-func physics_update(delta):
-	
-	jogador.velocity.x = 0
-	
-	# se andar, muda o estado
-	if(Input.is_action_pressed(\"ui_left\") or 
-	Input.is_action_pressed(\"ui_right\")):
-		get_parent().change_state(\"Walk\")
-	# se pular, muda o estado
-	elif(Input.is_action_just_pressed(\"ui_select\")):
-		get_parent().change_state(\"Jump\")
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
-
-[sub_resource type="GDScript" id="GDScript_yak7t"]
-script/source = "extends State
-
-# aciona a animacao assim que inicia o estado
-func enter():
-	print(\"Estado -> Walk\")
-	jogador.play_animation(\"walk\")
-
-func physics_update(delta):
-	
-	var direction := Input.get_axis(\"ui_left\", \"ui_right\")
-	
-	jogador.velocity.x = direction * jogador.speed
-	
-	# se nao mudou de direcao, personagem fica parado e muda de estado
-	if(direction == 0):
-		get_parent().change_state(\"Idle\")
-	
-	# se foi precionado o botão de espaco, muda para o estado de jump
-	if(Input.is_action_just_pressed(\"ui_select\") and jogador.is_on_floor()):
-		get_parent().change_state(\"Jump\")
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
-
 [node name="Jogador" type="CharacterBody2D" unique_id=1447033046]
 script = ExtResource("1_uahlj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1336130002]
 position = Vector2(0, -34)
 sprite_frames = SubResource("SpriteFrames_yak7t")
-animation = &"walk"
-frame = 10
-frame_progress = 0.51222914
+animation = &"attack"
+frame = 3
+frame_progress = 0.6779798
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=372587648]
 position = Vector2(0, -14)
@@ -284,11 +280,16 @@ shape = SubResource("CapsuleShape2D_c8qus")
 [node name="StateMachine" type="Node" parent="." unique_id=223255695]
 script = ExtResource("3_00bgo")
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=979940310]
-script = SubResource("GDScript_520wo")
-
-[node name="Walk" type="Node" parent="StateMachine" unique_id=170455298]
-script = SubResource("GDScript_yak7t")
-
 [node name="Jump" type="Node" parent="StateMachine" unique_id=591513966]
-script = ExtResource("5_5l1hb")
+script = ExtResource("5_hsew2")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=2008361226]
+script = ExtResource("4_520wo")
+
+[node name="Walk" type="Node" parent="StateMachine" unique_id=606135792]
+script = ExtResource("7_gbgqn")
+
+[node name="Attack" type="Node" parent="StateMachine" unique_id=856235610]
+script = ExtResource("9_o0buf")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
