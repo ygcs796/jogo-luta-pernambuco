@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://fcnhx2yy8v4a"]
 
+[ext_resource type="Script" uid="uid://nj6lpo31j058" path="res://scenes/jogo.gd" id="1_1b3iq"]
 [ext_resource type="PackedScene" uid="uid://bbwwd0wt8raab" path="res://characters/fighter/jogador.tscn" id="1_7bb4d"]
+[ext_resource type="PackedScene" uid="uid://b5df1qd2i4e3h" path="res://characters/train/jogador_treino.tscn" id="2_sq8yp"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yak7t"]
 
 [node name="Jogo" type="Node2D" unique_id=1193365227]
+script = ExtResource("1_1b3iq")
 
 [node name="Jogador" parent="." unique_id=1447033046 instance=ExtResource("1_7bb4d")]
 position = Vector2(-1, -1)
@@ -17,3 +20,12 @@ zoom = Vector2(3, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=197441880]
 shape = SubResource("WorldBoundaryShape2D_yak7t")
+
+[node name="JogadorTreino" parent="." unique_id=928347523 instance=ExtResource("2_sq8yp")]
+position = Vector2(148, 2)
+
+[node name="VidaInimigo" type="RichTextLabel" parent="." unique_id=970013375]
+offset_left = 124.0
+offset_top = -71.0
+offset_right = 183.0
+offset_bottom = -48.0

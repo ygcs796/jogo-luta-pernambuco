@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b5df1qd2i4e3h"]
+
+[ext_resource type="Script" uid="uid://cyp3emepsege4" path="res://characters/train/jogador_treino.gd" id="1_ewhsi"]
+[ext_resource type="Texture2D" uid="uid://bne2t4p8j7ayk" path="res://assets/sprites/idle_image.png" id="2_u4f6h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yak7t"]
+radius = 4.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qnxcb"]
+radius = 5.0
+height = 28.0
+
+[node name="JogadorTreino" type="CharacterBody2D" unique_id=928347523]
+script = ExtResource("1_ewhsi")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=578734934]
+position = Vector2(-1, -18)
+scale = Vector2(0.15097402, 0.15097402)
+texture = ExtResource("2_u4f6h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=488769367]
+position = Vector2(1, -17)
+shape = SubResource("CapsuleShape2D_yak7t")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1228662500]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1819054534]
+position = Vector2(1, -16)
+shape = SubResource("CapsuleShape2D_qnxcb")

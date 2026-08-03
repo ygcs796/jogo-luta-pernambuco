@@ -263,6 +263,20 @@ animations = [{
 radius = 5.0
 height = 28.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qnxcb"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_km08k"]
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x1ad8"]
+radius = 8.0
+height = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_31gp4"]
+radius = 2.989275
+height = 41.997658
+
 [node name="Jogador" type="CharacterBody2D" unique_id=1447033046]
 script = ExtResource("1_uahlj")
 
@@ -270,8 +284,8 @@ script = ExtResource("1_uahlj")
 position = Vector2(0, -34)
 sprite_frames = SubResource("SpriteFrames_yak7t")
 animation = &"attack"
-frame = 3
-frame_progress = 0.6779798
+frame = 4
+frame_progress = 0.42778054
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=372587648]
 position = Vector2(0, -14)
@@ -292,4 +306,28 @@ script = ExtResource("7_gbgqn")
 [node name="Attack" type="Node" parent="StateMachine" unique_id=856235610]
 script = ExtResource("9_o0buf")
 
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1163285266]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=179369334]
+position = Vector2(1, -16)
+shape = SubResource("CapsuleShape2D_qnxcb")
+
+[node name="AttackPivot" type="Node2D" parent="." unique_id=1576595447]
+
+[node name="Hitbox" type="Area2D" parent="AttackPivot" unique_id=2024600709]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/Hitbox" unique_id=1531253431]
+position = Vector2(35, -21)
+shape = SubResource("CapsuleShape2D_km08k")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="AttackPivot/Hitbox" unique_id=996350531]
+position = Vector2(21, -9)
+shape = SubResource("CapsuleShape2D_x1ad8")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="AttackPivot/Hitbox" unique_id=1569811483]
+position = Vector2(16, -29.000002)
+rotation = -1.560237
+shape = SubResource("CapsuleShape2D_31gp4")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="AttackPivot/Hitbox" to="StateMachine/Attack" method="_on_hitbox_area_entered"]

@@ -3,9 +3,12 @@ extends CharacterBody2D
 @export var speed := 300.0
 @export var jump_velocity := -400.0
 @export var gravity := 1200.0
+@export var vida := 100
+@export var dano_base := 10
 
 @onready var state_machine = $StateMachine
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hitbox = $AttackPivot/Hitbox
 
 func _physics_process(delta: float) -> void:
 	
@@ -19,6 +22,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _ready():
+	
+	hitbox.monitoring = false
 	# inicializa como estado idle
 	state_machine.change_state("Idle")
 
